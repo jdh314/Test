@@ -33,6 +33,8 @@ struct HourlyView: View {
                     .font(.system(size: 20, weight: .medium))
                     .foregroundColor(.white)
                     .padding(30)
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.roundedRectangle(radius: 10))
                 }
                 
                 ScrollViewReader { proxy in
