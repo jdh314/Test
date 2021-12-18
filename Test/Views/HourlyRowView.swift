@@ -18,15 +18,18 @@ struct HourlyRowView: View {
         
         HStack{
             Spacer()
+                .frame(width: 45.0)
             Text(checkAndReturnTime(timeToCheck:hourTime))
-            Spacer()
+                .padding(.trailing, 25)
             Image(systemName: checkForEmptyImage(loadedImage: hourCode))
-            Spacer()
+                .padding(.trailing, 25)
             Text("\(convertCurrentTemp(temp:hourTemp))°")
-            Spacer()
+                .padding(.trailing, 25)
             Text(checkForEmptyWeatherText(loadedText:hourDescription))
+            Spacer()
         }
-        .padding()
+        .padding(.bottom, 50)
+        .frame(alignment: .leading)
     }
 }
 

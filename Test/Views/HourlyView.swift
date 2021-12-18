@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HourlyView: View {
     
-    @State var scrollToValue: Int
+    @Binding var scrollToValue: Int?
     @ObservedObject var weatherModelData: ContentViewModel
     @Binding var isNight: Bool
     @Binding var topColorDay: Color
@@ -19,7 +19,6 @@ struct HourlyView: View {
     @Binding var isPresented: Bool
     
     var body: some View {
-        
         ZStack {
             BackgroundView(isNight: isNight, topColorDay: topColorDay, topColorNight: topColorNight, bottomColorDay: bottomColorDay, bottomColorNight: bottomColorNight)
             
@@ -37,26 +36,28 @@ struct HourlyView: View {
                     .buttonBorderShape(.roundedRectangle(radius: 10))
                 }
                 
-                ScrollViewReader { proxy in
+                ScrollViewReader { (proxy: ScrollViewProxy) in
                     ScrollView {
                         ForEach(0..<3){ i in
+                            HStack{
+                                Spacer()
+                                    .frame(maxWidth: 35.0)
+                                Text(isDayOfWeekEmpty(date:weatherModelData.responseWeatherData?.forecast.forecastday[i].date))
+                                    .padding()
+                                    .font(.largeTitle)
+                                Spacer()
+                            }
                             ForEach(0..<24) { j in
                                 HourlyRowView(hourTime: "\((weatherModelData.responseWeatherData?.forecast.forecastday[i].hour[j].time)!)",
                                               hourCode: weatherModelData.responseWeatherData?.forecast.forecastday[i].hour[j].condition.code,
                                               hourTemp: (weatherModelData.responseWeatherData?.forecast.forecastday[i].hour[j].temp_f)!,
                                               hourDescription: "\((weatherModelData.responseWeatherData?.forecast.forecastday[i].hour[j].condition.text)!)")
                             }
+                            
                         }
                     }
-                    
                 }
             }
         }
     }
 }
-
-//struct HourlyView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HourlyView(scrollToValue: 1, weatherModelData: ContentViewModel(), isNight: $isNight, topColorDay: $topColorDay, topColorNight: $topColorNight, bottomColorDay: $bottomColorDay, bottomColorNight: $bottomColorNight))
-//    }
-//}

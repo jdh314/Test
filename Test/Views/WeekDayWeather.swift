@@ -18,14 +18,14 @@ struct WeekDayWeather: View {
             VStack(spacing: 8){
                 Text(isDayOfWeekEmpty(date:dayOfTheWeek))
                     .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .medium))
+                    .fontWeight(.medium)
                 Image(systemName: checkForEmptyImage(loadedImage: forecastedWeather))
                     .resizable()
                     .renderingMode(.original)
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
                 Text("\(convertCurrentTemp(temp:temp))°")
-                    .font(.system(size: 20, weight: .medium))
+                    .fontWeight(.medium)
                     .foregroundColor(.white)
             }
         }
