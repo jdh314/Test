@@ -21,6 +21,8 @@ struct ContentView: View {
     @State var scrollToValue: Int?
         
     var body: some View {
+        
+        
         ZStack{
             BackgroundView(isNight: isNight, topColorDay: topColorDay, topColorNight: topColorNight, bottomColorDay: bottomColorDay, bottomColorNight: bottomColorNight)
 
@@ -64,7 +66,7 @@ struct ContentView: View {
                                   foregroundColor: isNight ? .white: .blue)
                 }
                 .sheet(isPresented: $presentHourlyView) {
-                    HourlyView(scrollToValue: $scrollToValue, weatherModelData: weatherModelData, isNight: $isNight, topColorDay: $topColorDay, topColorNight: $topColorNight, bottomColorDay: $bottomColorDay, bottomColorNight: $bottomColorNight, isPresented: $presentHourlyView)
+                    HourlyView(weatherModelData: weatherModelData, isNight: $isNight, topColorDay: $topColorDay, topColorNight: $topColorNight, bottomColorDay: $bottomColorDay, bottomColorNight: $bottomColorNight, isPresented: $presentHourlyView)
 
                 }
 

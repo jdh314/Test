@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HourlyView: View {
     
-    @Binding var scrollToValue: Int?
     @ObservedObject var weatherModelData: ContentViewModel
     @Binding var isNight: Bool
     @Binding var topColorDay: Color
