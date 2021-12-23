@@ -28,16 +28,13 @@ struct CurrentWeatherView: View {
         if dynamicTypeSize >= .accessibility2 {
             Text(checkForEmptyWeatherText(loadedText: currentWeatherText))
                 .font(.system(size: 60, weight: .medium))
-                //.foregroundColor(.white)
         } else {
             Text(checkForEmptyWeatherText(loadedText: currentWeatherText))
                 .font(.system(size: 35, weight: .medium))
-                //.foregroundColor(.white)
         }
         
         Text("\(convertCurrentTemp(temp:currentTemp))°")
             .font(.system(size: 70, weight: .medium))
-            //.foregroundColor(.white)
             .padding(.bottom, 20)
         
     }

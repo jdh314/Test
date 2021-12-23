@@ -17,7 +17,6 @@ struct WeekDayWeather: View {
         ZStack {
             VStack(spacing: 8){
                 Text(isDayOfWeekEmpty(date:dayOfTheWeek))
-                    //.foregroundColor(.white)
                     .fontWeight(.medium)
                 Image(systemName: checkForEmptyImage(loadedImage: forecastedWeather))
                     .resizable()
@@ -26,7 +25,6 @@ struct WeekDayWeather: View {
                     .frame(width: 30, height: 30)
                 Text("\(convertCurrentTemp(temp:temp))°")
                     .fontWeight(.medium)
-                    //.foregroundColor(.white)
             }
         }
     }

@@ -21,12 +21,10 @@ struct CityView: View {
         if dynamicTypeSize >= .accessibility2 {
             Text(isCityNameEmpty(cityName:cityName))
                 .font(.system(size: 60, weight: .medium))
-                //.foregroundColor(.white)
                 .padding(.top, 15)
         } else {
             Text(isCityNameEmpty(cityName:cityName))
                 .font(.system(size: 35, weight: .medium))
-                //.foregroundColor(.white)
                 .padding(.top, 15)
             
         }

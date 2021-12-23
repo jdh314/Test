@@ -10,16 +10,14 @@ import SwiftUI
 struct HourlyView: View {
     
     @ObservedObject var weatherModelData: ContentViewModel
-    @Binding var isNight: Bool
-    @Binding var topColorDay: Color
-    @Binding var topColorNight: Color
-    @Binding var bottomColorDay: Color
-    @Binding var bottomColorNight: Color
+    @Binding var topColor: Color
+    @Binding var bottomColor: Color
+    
     @Binding var isPresented: Bool
     
     var body: some View {
         ZStack {
-            BackgroundView(isNight: isNight, topColorDay: topColorDay, topColorNight: topColorNight, bottomColorDay: bottomColorDay, bottomColorNight: bottomColorNight)
+            BackgroundView(topColor: topColor, bottomeColor: bottomColor)
             
             VStack {
                 

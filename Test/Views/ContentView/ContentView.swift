@@ -10,13 +10,9 @@ import SwiftUI
 struct ContentView: View {
 
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    @Environment(\.colorScheme) var colorScheme
     @StateObject var weatherModelData = ContentViewModel()
-    @State private var isNight = false
-    @State private var topColorDay: Color = Color("topGradient")
-    @State private var topColorNight: Color = .pink
-    @State private var bottomColorDay: Color = Color("bottomGradient")
-    @State private var bottomColorNight: Color = .orange
+    @State private var topColor: Color = Color("topGradient")
+    @State private var bottomColor: Color = Color("bottomGradient")
     @State private var presentHourlyView = false
         
     var body: some View {
@@ -24,12 +20,12 @@ struct ContentView: View {
         
         ZStack{
             
-            BackgroundView(isNight: isNight, topColorDay: topColorDay, topColorNight: topColorNight, bottomColorDay: bottomColorDay, bottomColorNight: bottomColorNight)
+            BackgroundView(topColor: topColor, bottomeColor: bottomColor)
 
             
             if weatherModelData.responseWeatherData == nil {
                 ProgressView(value: weatherModelData.loadingProgress)
-                    .frame(width: 400.0)
+                    .frame(width: 300, height: 300)
             } else {
                 VStack{
                     CityView(cityName: weatherModelData.responseWeatherData?.location.name, dynamicTypeSize: dynamicTypeSize)
@@ -37,7 +33,7 @@ struct ContentView: View {
                     Spacer()
                     
                     CurrentWeatherView(currentTemp: weatherModelData.responseWeatherData?.current.temp_f,
-                                       currentWeatherImage: isNight ? weatherModelData.responseWeatherData?.current.condition.code : weatherModelData.responseWeatherData?.current.condition.code,
+                                       currentWeatherImage: weatherModelData.responseWeatherData?.current.condition.code,
                                        currentWeatherText: weatherModelData.responseWeatherData?.current.condition.text, dynamicTypeSize: dynamicTypeSize)
                     
                     HStack(spacing: 40) {
@@ -57,7 +53,6 @@ struct ContentView: View {
                                            forecastedWeather: weatherModelData.responseWeatherData?.forecast.forecastday[2].day.condition.code,
                                            temp: weatherModelData.responseWeatherData?.forecast.forecastday[2].day.maxtemp_f)
                         }
-                        
                     }
                         
                     Spacer()
@@ -66,11 +61,14 @@ struct ContentView: View {
                         presentHourlyView.toggle()
                     } label: {
                         WeatherButtonView(buttonTitle: "Hourly Details",
-                                      backgroundColor: isNight ? Color("buttonBackground"): Color("buttonBackground"),
+                                          backgroundColor: Color("buttonBackground"),
                                           foregroundColor: .black)
                     }
                     .sheet(isPresented: $presentHourlyView) {
-                        HourlyView(weatherModelData: weatherModelData, isNight: $isNight, topColorDay: $topColorDay, topColorNight: $topColorNight, bottomColorDay: $bottomColorDay, bottomColorNight: $bottomColorNight, isPresented: $presentHourlyView)
+                        HourlyView(weatherModelData: weatherModelData,
+                                   topColor: $topColor,
+                                   bottomColor: $bottomColor,
+                                   isPresented: $presentHourlyView)
 
                     }
 
@@ -80,11 +78,8 @@ struct ContentView: View {
                     } else {
                         Text("Data from WeatherAPI.com")
                     }
-                    
                 }
             }
-            
-            
         }
         .environmentObject(weatherModelData)
         .onAppear(perform: weatherModelData.checkIfServicesAreEnabled)

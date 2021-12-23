@@ -8,8 +8,6 @@
 import Foundation
 
 struct WeatherStruct: Codable {
-    //let id = UUID()
-    
     let location: Location
     let current: Current
     let forecast: Forecast
@@ -48,7 +46,6 @@ struct Condition: Codable {
 }
 
 struct Forecast: Codable {
-    //let id = UUID()
     let forecastday: [Forecastday]
 }
 
