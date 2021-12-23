@@ -22,16 +22,15 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     }
 
     @Published var responseWeatherData: WeatherStruct?
+    @Published var loadingProgress: Double?
     //@Published var forecast: Forecast?
 
-    //let url = URL(string: weatherURL)
     var returnData: Data?
     
     //location variables:
     var locationManager: CLLocationManager?
     
     // Location services calls
-    
     func checkIfServicesAreEnabled() {
         if CLLocationManager.locationServicesEnabled() {
             locationManager = CLLocationManager()
@@ -53,13 +52,16 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         case .denied:
             print("you have denied location permission, please change in settings")
         case .authorizedAlways, .authorizedWhenInUse:
+            loadingProgress = 0.25
             guard let checkedLat = locationManager.location?.coordinate.latitude else {return}
             let lat = String(format: "%.5f", checkedLat)
             guard let checkedLong = locationManager.location?.coordinate.longitude else {return}
             let long = String(format: "%.5f",checkedLong)
             
-            guard let weatherURL = URL(string: "https://api.weatherapi.com/v1/forecast.json?key=7c145ce76f2549af8b4144902210511&q=\(lat),\(long)&days=3&aqi=no&alerts=no") else {return}
+            loadingProgress = 0.50
             
+            guard let weatherURL = URL(string: "https://api.weatherapi.com/v1/forecast.json?key=7c145ce76f2549af8b4144902210511&q=\(lat),\(long)&days=3&aqi=no&alerts=no") else {return}
+            loadingProgress = 0.75
             let dataTask = URLSession.shared.dataTask(with: weatherURL) { data, response, error in
                 if let error = error {
                     print("Request error: \(error)")

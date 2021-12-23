@@ -25,12 +25,15 @@ struct HourlyView: View {
                 
                 HStack{
                     Spacer()
-                    Button("Close") {
+                    Button {
                         isPresented.toggle()
+                    } label: {
+                        Text("Close")
+                            .fontWeight(.medium)
                     }
-                    .font(.system(size: 20, weight: .medium))
                     .foregroundColor(.white)
-                    .padding(30)
+                    .padding(.trailing, 30)
+                    .padding(.top, 30)
                     .buttonStyle(.bordered)
                     .buttonBorderShape(.roundedRectangle(radius: 10))
                 }
