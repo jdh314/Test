@@ -6,19 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
 
 func isDayOfWeekEmpty(date: String?) -> String {
     guard let checkedDate = date  else {
         return "--"
     }
-    return getDayOfWeekFromDate(date: checkedDate)
-}
-
-func getDayOfWeekFromDate(date: String) -> String {
     let formatter = DateFormatter()
     let calendar = Calendar.init(identifier: .gregorian)
     formatter.dateFormat = "yyyy-MM-dd"
-    let formattedDate = formatter.date(from: date)
+    let formattedDate = formatter.date(from: checkedDate)
     let calendarComponent = calendar.component(.weekday, from: formattedDate!)
     return convertWeekDayComponenet(componentWeekDay: calendarComponent)
 }
@@ -45,6 +42,7 @@ func checkForEmptyWeatherText(loadedText: String?) -> String {
 }
     
 func checkAndReturnTime(timeToCheck: String?) -> String {
+    var timeToReturn = ""
     guard let checkedTime = timeToCheck else {
         return "--"
     }
@@ -52,5 +50,26 @@ func checkAndReturnTime(timeToCheck: String?) -> String {
         print("there was no space found in the time string")
         return("--")
     }
-    return String(checkedTime[checkedTime.index(after: spaceIndex)...])
+    let stringTime = String(checkedTime[checkedTime.index(after: spaceIndex)...])
+    guard let dateFormat = DateFormatter.dateFormat (fromTemplate: "j",options:0, locale: Locale.current) else {
+        print("could not get time format")
+        return "--"
+    }
+    
+    if dateFormat == "h a" {
+        guard let intHour = Int(stringTime.dropLast(3)) else {
+            print("the time did not convert to an Integer")
+            return "--"
+        }
+        if intHour > 12 {
+            timeToReturn = "\(intHour - 12):00 pm"
+        } else if intHour == 00 {
+            timeToReturn = "12:00 am"
+        } else {
+            timeToReturn = "\(intHour):00 am"
+        }
+    } else {
+        timeToReturn = stringTime
+    }
+    return timeToReturn
 }

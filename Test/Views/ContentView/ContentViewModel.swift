@@ -23,7 +23,6 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
 
     @Published var responseWeatherData: WeatherStruct?
     @Published var loadingProgress: Double?
-    //@Published var forecast: Forecast?
 
     var returnData: Data?
     
