@@ -33,6 +33,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     func checkIfServicesAreEnabled() {
         if CLLocationManager.locationServicesEnabled() {
             locationManager = CLLocationManager()
+            locationManager?.desiredAccuracy = kCLLocationAccuracyKilometer
             locationManager!.delegate = self
         } else {
             print("Show alert that location services are off")
@@ -48,13 +49,14 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
             print("location is restricted, check parental controls")
+            locationManager.requestWhenInUseAuthorization()
         case .denied:
             print("you have denied location permission, please change in settings")
         case .authorizedAlways, .authorizedWhenInUse:
             loadingProgress = 0.25
-            guard let checkedLat = locationManager.location?.coordinate.latitude else {return}
+            guard let checkedLat = locationManager.location?.coordinate.latitude else { return }
             let lat = String(format: "%.5f", checkedLat)
-            guard let checkedLong = locationManager.location?.coordinate.longitude else {return}
+            guard let checkedLong = locationManager.location?.coordinate.longitude else { return }
             let long = String(format: "%.5f",checkedLong)
             
             loadingProgress = 0.50

@@ -74,10 +74,13 @@ struct ContentView: View {
 
                     Spacer()
                     if dynamicTypeSize >= .accessibility2 {
-                        Text("WeatherAPI.com")
+                        //Text("WeatherAPI.com")
+                        Link("WeatherAPI.com", destination: URL(string: "https://www.weatherapi.com/")!)
                     } else {
-                        Text("Data from WeatherAPI.com")
+                        //Text("Data from WeatherAPI.com")
+                        Link("Data from WeatherAPI.com", destination: URL(string: "https://www.weatherapi.com/")!)
                     }
+                    
                 }
             }
         }

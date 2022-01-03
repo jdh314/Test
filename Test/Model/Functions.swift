@@ -65,6 +65,8 @@ func checkAndReturnTime(timeToCheck: String?) -> String {
             timeToReturn = "\(intHour - 12):00 pm"
         } else if intHour == 00 {
             timeToReturn = "12:00 am"
+        } else if intHour == 12 {
+            timeToReturn = "12:00 pm"
         } else {
             timeToReturn = "\(intHour):00 am"
         }
