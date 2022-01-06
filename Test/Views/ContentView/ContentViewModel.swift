@@ -55,12 +55,11 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         case .authorizedAlways, .authorizedWhenInUse:
             loadingProgress = 0.25
             guard let checkedLat = locationManager.location?.coordinate.latitude else { return }
-            let lat = String(format: "%.5f", checkedLat)
+            let lat = String(format: "%.5f", checkedLat)  //"43.15426"
             guard let checkedLong = locationManager.location?.coordinate.longitude else { return }
-            let long = String(format: "%.5f",checkedLong)
+            let long = String(format: "%.5f",checkedLong)  //"-77.61357"
             
             loadingProgress = 0.50
-            
             guard let weatherURL = URL(string: "https://api.weatherapi.com/v1/forecast.json?key=7c145ce76f2549af8b4144902210511&q=\(lat),\(long)&days=3&aqi=no&alerts=no") else {return}
             loadingProgress = 0.75
             let dataTask = URLSession.shared.dataTask(with: weatherURL) { data, response, error in
