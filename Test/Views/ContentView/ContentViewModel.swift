@@ -23,6 +23,8 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
 
     @Published var responseWeatherData: WeatherStruct?
     @Published var loadingProgress: Double?
+    @Published var showAlert: Bool = false
+    @Published var alertTitle: String = ""
 
     var returnData: Data?
     
@@ -36,7 +38,8 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             locationManager?.desiredAccuracy = kCLLocationAccuracyKilometer
             locationManager!.delegate = self
         } else {
-            print("Show alert that location services are off")
+            alertTitle = "Location services are not enabled"
+            showAlert = true
         }
     }
     
@@ -51,7 +54,8 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             print("location is restricted, check parental controls")
             locationManager.requestWhenInUseAuthorization()
         case .denied:
-            print("you have denied location permission, please change in settings")
+            alertTitle = "Location access is denied, please update settings"
+            showAlert = true
         case .authorizedAlways, .authorizedWhenInUse:
             loadingProgress = 0.25
             guard let checkedLat = locationManager.location?.coordinate.latitude else { return }

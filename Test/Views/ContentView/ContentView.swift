@@ -86,5 +86,8 @@ struct ContentView: View {
         }
         .environmentObject(weatherModelData)
         .onAppear(perform: weatherModelData.checkIfServicesAreEnabled)
+        .alert(isPresented: $weatherModelData.showAlert) {
+            Alert(title: Text(weatherModelData.alertTitle))
+        }
     }
 }
