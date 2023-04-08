@@ -38,7 +38,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             locationManager?.desiredAccuracy = kCLLocationAccuracyKilometer
             locationManager!.delegate = self
         } else {
-            alertTitle = "Location services are not enabled"
+            alertTitle = "Location services are not enabled, close the app, update device settings and open the app."
             showAlert = true
         }
     }
@@ -54,7 +54,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             print("location is restricted, check parental controls")
             locationManager.requestWhenInUseAuthorization()
         case .denied:
-            alertTitle = "Location access is denied, please update settings"
+            alertTitle = "Location access is denied, close the app, update device settings and open the app."
             showAlert = true
         case .authorizedAlways, .authorizedWhenInUse:
             loadingProgress = 0.25
