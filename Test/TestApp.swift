@@ -13,6 +13,7 @@ struct TestApp: App {
     var weatherModelData = ContentViewModel()
     var body: some Scene {
         WindowGroup {
+            //SearchView()
             ContentView().environmentObject(weatherModelData)
         }
     }

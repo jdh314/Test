@@ -10,16 +10,16 @@ import CoreLocation
 
 final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
-    var baseURL = "https://api.weatherapi.com/v1"
-
-    var APIKey = "?key=7c145ce76f2549af8b4144902210511"
-
-    var city: String = "Greece"
-
-    enum RequestType: String {
-        case currentWeather = "/current.json"
-        case forecast = "/forecast.json"
-    }
+//    var baseURL = "https://api.weatherapi.com/v1"
+//
+//    var APIKey = "?key=7c145ce76f2549af8b4144902210511"
+//
+//    var city: String = "Greece"
+//
+//    enum RequestType: String {
+//        case currentWeather = "/current.json"
+//        case forecast = "/forecast.json"
+//    }
 
     @Published var responseWeatherData: WeatherStruct?
     @Published var loadingProgress: Double?
@@ -61,7 +61,7 @@ final class ContentViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             guard let checkedLat = locationManager.location?.coordinate.latitude else { return }
             let lat = String(format: "%.5f", checkedLat)  //"43.15426"
             guard let checkedLong = locationManager.location?.coordinate.longitude else { return }
-            let long = String(format: "%.5f",checkedLong)  //"-77.61357"
+            let long = String(format: "%.5f", checkedLong)  //"-77.61357"
             
             loadingProgress = 0.50
             guard let weatherURL = URL(string: "https://api.weatherapi.com/v1/forecast.json?key=7c145ce76f2549af8b4144902210511&q=\(lat),\(long)&days=3&aqi=no&alerts=no") else {return}

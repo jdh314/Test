@@ -91,6 +91,16 @@ struct ForecastdayForView {
     let hour: [Hour]
 }
 
+struct CityStruct: Codable {
+    let id : Int
+    let name: String
+    let region: String
+    let country: String
+    let lat: Double
+    let lon: Double
+    let url: String
+}
+
 let dayCodeIcons: [Int: String] = [1000: "sun.max.fill",
                              1003: "cloud.sun.fill",
                              1006: "cloud.sun.fill",
